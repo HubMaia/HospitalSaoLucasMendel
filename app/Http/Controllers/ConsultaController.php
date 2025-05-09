@@ -44,6 +44,28 @@ class ConsultaController extends Controller
         $dataConsulta = Carbon::parse($data['data']);
         $diaSemana = $this->getDiaSemana($dataConsulta->dayOfWeek);
 
+        // Primeiro, verificar se o médico atende na especialidade selecionada
+        $medicoEspecialidade = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('ativo', true)
+            ->first();
+
+        if (!$medicoEspecialidade) {
+            return back()->withErrors(['especialidade_id' => 'Este médico não atende na especialidade selecionada.']);
+        }
+
+        // Depois, verificar se o médico atende no dia da semana
+        $medicoDia = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('dia_semana', $diaSemana)
+            ->where('ativo', true)
+            ->first();
+
+        if (!$medicoDia) {
+            return back()->withErrors(['data' => 'Este médico não atende nas ' . strtolower($diaSemana) . 's.']);
+        }
+
+        // Por fim, verificar se o horário está dentro do período de atendimento
         $horarioMedico = HorarioMedico::where('medico_id', $data['medico_id'])
             ->where('especialidade_id', $data['especialidade_id'])
             ->where('dia_semana', $diaSemana)
@@ -53,7 +75,7 @@ class ConsultaController extends Controller
             ->first();
 
         if (!$horarioMedico) {
-            return back()->withErrors(['hora' => 'O médico não atende neste horário.']);
+            return back()->withErrors(['hora' => 'O horário selecionado está fora do período de atendimento do médico.']);
         }
 
         // Verificar se já existe consulta agendada no mesmo horário
@@ -96,6 +118,28 @@ class ConsultaController extends Controller
         $dataConsulta = Carbon::parse($data['data']);
         $diaSemana = $this->getDiaSemana($dataConsulta->dayOfWeek);
 
+        // Primeiro, verificar se o médico atende na especialidade selecionada
+        $medicoEspecialidade = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('ativo', true)
+            ->first();
+
+        if (!$medicoEspecialidade) {
+            return back()->withErrors(['especialidade_id' => 'Este médico não atende na especialidade selecionada.']);
+        }
+
+        // Depois, verificar se o médico atende no dia da semana
+        $medicoDia = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('dia_semana', $diaSemana)
+            ->where('ativo', true)
+            ->first();
+
+        if (!$medicoDia) {
+            return back()->withErrors(['data' => 'Este médico não atende nas ' . strtolower($diaSemana) . 's.']);
+        }
+
+        // Por fim, verificar se o horário está dentro do período de atendimento
         $horarioMedico = HorarioMedico::where('medico_id', $data['medico_id'])
             ->where('especialidade_id', $data['especialidade_id'])
             ->where('dia_semana', $diaSemana)
@@ -105,7 +149,7 @@ class ConsultaController extends Controller
             ->first();
 
         if (!$horarioMedico) {
-            return back()->withErrors(['hora' => 'O médico não atende neste horário.']);
+            return back()->withErrors(['hora' => 'O horário selecionado está fora do período de atendimento do médico.']);
         }
 
         // Verificar se já existe consulta agendada no mesmo horário (exceto a própria consulta)

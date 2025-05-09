@@ -16,7 +16,6 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>CRM</th>
                         <th>Especialidades</th>
                         <th>Status</th>
                         <th>Ações</th>
@@ -26,7 +25,6 @@
                     @foreach($medicos as $medico)
                     <tr>
                         <td>{{ $medico->nome }}</td>
-                        <td>{{ $medico->crm }}</td>
                         <td>
                             @foreach($medico->especialidades as $especialidade)
                             <span class="badge bg-primary">{{ $especialidade->nome }}</span>

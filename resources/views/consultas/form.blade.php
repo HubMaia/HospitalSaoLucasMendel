@@ -1,6 +1,6 @@
 @if ($errors->any())
 <div class="alert alert-danger">
-    <ul>
+    <ul class="mb-0">
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
@@ -8,60 +8,81 @@
 </div>
 @endif
 
-<div class="mb-3">
-    <label for="paciente_id" class="form-label">Paciente</label>
-    <select name="paciente_id" id="paciente_id" class="form-select" required>
-        <option value="">Selecione um paciente</option>
-        @foreach($pacientes as $paciente)
-        <option value="{{ $paciente->id }}" {{ (old('paciente_id', $consulta->paciente_id ?? '') == $paciente->id) ? 'selected' : '' }}>
-            {{ $paciente->nome }}
-        </option>
-        @endforeach
-    </select>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="paciente_id" class="form-label">Paciente</label>
+        <select class="form-select @error('paciente_id') is-invalid @enderror" id="paciente_id" name="paciente_id" required>
+            <option value="">Selecione um paciente</option>
+            @foreach($pacientes as $paciente)
+            <option value="{{ $paciente->id }}" {{ old('paciente_id', $consulta->paciente_id ?? '') == $paciente->id ? 'selected' : '' }}>
+                {{ $paciente->nome }}
+            </option>
+            @endforeach
+        </select>
+        @error('paciente_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label for="medico_id" class="form-label">Médico</label>
+        <select class="form-select @error('medico_id') is-invalid @enderror" id="medico_id" name="medico_id" required>
+            <option value="">Selecione um médico</option>
+            @foreach($medicos as $medico)
+            <option value="{{ $medico->id }}" {{ old('medico_id', $consulta->medico_id ?? '') == $medico->id ? 'selected' : '' }}>
+                {{ $medico->nome }}
+            </option>
+            @endforeach
+        </select>
+        @error('medico_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 </div>
 
-<div class="mb-3">
-    <label for="medico_id" class="form-label">Médico</label>
-    <select name="medico_id" id="medico_id" class="form-select" required>
-        <option value="">Selecione um médico</option>
-        @foreach($medicos as $medico)
-        <option value="{{ $medico->id }}" {{ (old('medico_id', $consulta->medico_id ?? '') == $medico->id) ? 'selected' : '' }}>
-            {{ $medico->nome }}
-        </option>
-        @endforeach
-    </select>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="especialidade_id" class="form-label">Especialidade</label>
+        <select class="form-select @error('especialidade_id') is-invalid @enderror" id="especialidade_id" name="especialidade_id" required>
+            <option value="">Selecione uma especialidade</option>
+            @foreach($especialidades as $especialidade)
+            <option value="{{ $especialidade->id }}" {{ old('especialidade_id', $consulta->especialidade_id ?? '') == $especialidade->id ? 'selected' : '' }}>
+                {{ $especialidade->nome }}
+            </option>
+            @endforeach
+        </select>
+        @error('especialidade_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label for="data" class="form-label">Data da Consulta</label>
+        <input type="date" class="form-control @error('data') is-invalid @enderror" id="data" name="data" value="{{ old('data', optional($consulta->data ?? null)->format('Y-m-d')) }}" required>
+        @error('data')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 </div>
 
-<div class="mb-3">
-    <label for="especialidade_id" class="form-label">Especialidade</label>
-    <select name="especialidade_id" id="especialidade_id" class="form-select" required>
-        <option value="">Selecione uma especialidade</option>
-        @foreach($especialidades as $especialidade)
-        <option value="{{ $especialidade->id }}" {{ (old('especialidade_id', $consulta->especialidade_id ?? '') == $especialidade->id) ? 'selected' : '' }}>
-            {{ $especialidade->nome }}
-        </option>
-        @endforeach
-    </select>
-</div>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="hora" class="form-label">Horário da Consulta</label>
+        <input type="time" class="form-control @error('hora') is-invalid @enderror" id="hora" name="hora" value="{{ old('hora', optional($consulta->hora ?? null)->format('H:i')) }}" required>
+        @error('hora')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-<div class="mb-3">
-    <label for="data" class="form-label">Data</label>
-    <input type="date" name="data" id="data" class="form-control"
-        value="{{ old('data', optional($consulta->data ?? null)->format('Y-m-d')) }}" required>
-</div>
-
-<div class="mb-3">
-    <label for="hora" class="form-label">Hora</label>
-    <input type="time" name="hora" id="hora" class="form-control"
-        value="{{ old('hora', optional($consulta->hora ?? null)->format('H:i')) }}" required>
-</div>
-
-<div class="mb-3">
-    <label for="status" class="form-label">Status</label>
-    <select name="status" id="status" class="form-select" required>
-        <option value="agendada" {{ (old('status', $consulta->status ?? '') == 'agendada') ? 'selected' : '' }}>Agendada</option>
-        <option value="concluída" {{ (old('status', $consulta->status ?? '') == 'concluída') ? 'selected' : '' }}>Concluída</option>
-        <option value="cancelada" {{ (old('status', $consulta->status ?? '') == 'cancelada') ? 'selected' : '' }}>Cancelada</option>
-        <option value="faltou" {{ (old('status', $consulta->status ?? '') == 'faltou') ? 'selected' : '' }}>Faltou</option>
-    </select>
+    <div class="col-md-6 mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+            <option value="agendada" {{ old('status', $consulta->status ?? '') == 'agendada' ? 'selected' : '' }}>Agendada</option>
+            <option value="realizada" {{ old('status', $consulta->status ?? '') == 'realizada' ? 'selected' : '' }}>Realizada</option>
+            <option value="cancelada" {{ old('status', $consulta->status ?? '') == 'cancelada' ? 'selected' : '' }}>Cancelada</option>
+        </select>
+        @error('status')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 </div>

@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
+@section('title', 'Editar Especialidade')
+
 @section('content')
-<h2>Editar Especialidade</h2>
-
-<form action="{{ route('especialidades.update', $especialidade) }}" method="POST">
-    @csrf
-    @method('PUT')
-
-    <div class="mb-3">
-        <label for="nome" class="form-label">Nome</label>
-        <input type="text" name="nome" id="nome" class="form-control" value="{{ $especialidade->nome }}" required>
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Editar Especialidade</h5>
     </div>
-
-    <div class="mb-3">
-        <label for="descricao" class="form-label">Descrição</label>
-        <textarea name="descricao" id="descricao" class="form-control" rows="3">{{ $especialidade->descricao }}</textarea>
+    <div class="card-body">
+        <form action="{{ route('especialidades.update', $especialidade) }}" method="POST">
+            @csrf
+            @method('PUT')
+            @include('especialidades.form')
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{{ route('especialidades.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Atualizar
+                </button>
+            </div>
+        </form>
     </div>
-
-    <button type="submit" class="btn btn-primary">Atualizar</button>
-    <a href="{{ route('especialidades.index') }}" class="btn btn-secondary">Cancelar</a>
-</form>
+</div>
 @endsection
