@@ -132,8 +132,7 @@
 
     <div class="hero-section">
         <div class="container">
-            <h1 class="hero-title">Excelência em Saúde</h1>
-            <p class="hero-subtitle">Cuidando de você com tecnologia e humanidade</p>
+
         </div>
     </div>
 
@@ -197,6 +196,30 @@
                                 <h5 class="card-title">Consultas</h5>
                                 <p class="card-text">Agendamento e gerenciamento de consultas</p>
                                 <a href="{{ route('consultas.index') }}" class="btn btn-primary">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Autorizações de Convênio -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-contract feature-icon"></i>
+                                <h5 class="card-title">Autorizações de Convênio</h5>
+                                <p class="card-text">Gerenciamento de autorizações de convênio</p>
+                                <a href="{{ route('autorizacoes.index') }}" class="btn btn-primary">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagamentos -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-dollar-sign feature-icon"></i>
+                                <h5 class="card-title">Pagamentos</h5>
+                                <p class="card-text">Gerenciamento de pagamentos de consultas particulares</p>
+                                <a href="{{ route('pagamentos.index') }}" class="btn btn-primary">Acessar</a>
                             </div>
                         </div>
                     </div>
