@@ -140,7 +140,6 @@
     <div class="container" style="margin-top: -40px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h2 class="section-title">Nossos Serviços</h2>
                 <div class="row">
                     <!-- Médicos -->
                     <div class="col-md-4 mb-4">

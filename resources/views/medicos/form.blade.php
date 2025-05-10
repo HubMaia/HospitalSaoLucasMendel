@@ -28,14 +28,14 @@
 
     <div class="col-md-6 mb-3">
         <label for="idade" class="form-label">Idade</label>
-        <input type="number" class="form-control" id="idade" name="idade" value="{{ old('idade', $medico->idade ?? '') }}" required>
+        <input type="number" class="form-control" id="idade" name="idade" value="{{ old('idade', $medico->idade ?? '') }}" readonly required>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento', optional($medico->data_nascimento ?? null)->format('Y-m-d')) }}" required>
+        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento', optional($medico->data_nascimento ?? null)->format('Y-m-d')) }}" required onchange="calcularIdade()">
     </div>
 
     <div class="col-md-6 mb-3">
@@ -94,4 +94,32 @@
         <label class="form-check-label" for="ativo">Ativo</label>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function calcularIdade() {
+    const dataNascimento = document.getElementById('data_nascimento').value;
+    if (dataNascimento) {
+        const hoje = new Date();
+        const nascimento = new Date(dataNascimento);
+        let idade = hoje.getFullYear() - nascimento.getFullYear();
+        const mesAtual = hoje.getMonth();
+        const mesNascimento = nascimento.getMonth();
+        
+        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < nascimento.getDate())) {
+            idade--;
+        }
+        
+        document.getElementById('idade').value = idade;
+    }
+}
+
+// Calcular idade ao carregar a página se houver data de nascimento
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('data_nascimento').value) {
+        calcularIdade();
+    }
+});
+</script>
+@endpush
 </div>
