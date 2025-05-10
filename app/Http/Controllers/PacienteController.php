@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paciente;
+use App\Rules\Cpf;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
@@ -22,7 +23,7 @@ class PacienteController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|string|max:100',
-            'cpf' => 'required|string|max:14|unique:pacientes',
+            'cpf' => ['required', 'string', 'max:14', 'unique:pacientes', new Cpf],
             'telefone' => 'required|string|max:20',
             'endereco' => 'required|string|max:150',
             'data_nascimento' => 'required|date',
@@ -44,7 +45,7 @@ class PacienteController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|string|max:100',
-            'cpf' => "required|string|max:14|unique:pacientes,cpf,{$paciente->id}",
+            'cpf' => ['required', 'string', 'max:14', "unique:pacientes,cpf,{$paciente->id}", new Cpf],
             'telefone' => 'required|string|max:20',
             'endereco' => 'required|string|max:150',
             'data_nascimento' => 'required|date',

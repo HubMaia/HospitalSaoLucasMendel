@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Medico;
 use App\Models\Especialidade;
+use App\Rules\Cpf;
 use Illuminate\Http\Request;
 
 class MedicoController extends Controller
@@ -24,7 +25,7 @@ class MedicoController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|string|max:100',
-            'cpf' => 'required|string|max:14|unique:medicos',
+            'cpf' => ['required', 'string', 'max:14', 'unique:medicos', new Cpf],
             'genero' => 'required|string|max:20',
             'idade' => 'required|integer',
             'data_nascimento' => 'required|date',
@@ -56,7 +57,7 @@ class MedicoController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|string|max:100',
-            'cpf' => "required|string|max:14|unique:medicos,cpf,{$medico->id}",
+            'cpf' => ['required', 'string', 'max:14', "unique:medicos,cpf,{$medico->id}", new Cpf],
             'genero' => 'required|string|max:20',
             'idade' => 'required|integer',
             'data_nascimento' => 'required|date',
