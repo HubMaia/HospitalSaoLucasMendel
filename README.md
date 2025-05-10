@@ -1,61 +1,237 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hospital São Lucas e Mendel - Sistema de Gestão
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de gestão para clínicas médicas, desenvolvido para o Hospital São Lucas e Mendel. O sistema permite o gerenciamento completo de médicos, pacientes, consultas, especialidades e convênios.
 
-## About Laravel
+## 🚀 Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Gestão de Médicos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Cadastro completo de médicos
+-   Gerenciamento de especialidades
+-   Controle de horários de atendimento
+-   Status de atividade
+-   Histórico de admissão/demissão
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Gestão de Pacientes
 
-## Learning Laravel
+-   Cadastro de pacientes
+-   Histórico de consultas
+-   Status do cadastro
+-   Informações de contato
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Agendamento de Consultas
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   Marcação de consultas
+-   Verificação de disponibilidade
+-   Controle de status (agendada, realizada, cancelada)
+-   Validação de horários e especialidades
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Gestão de Especialidades
 
-## Laravel Sponsors
+-   Cadastro de especialidades médicas
+-   Descrição detalhada
+-   Vinculação com médicos
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Gestão de Convênios
 
-### Premium Partners
+-   Cadastro de convênios
+-   Autorizações
+-   Controle de pagamentos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+## 🛠️ Tecnologias Utilizadas
 
-## Contributing
+-   PHP 8.2
+-   Laravel 10.x
+-   MySQL
+-   Bootstrap 5
+-   jQuery
+-   jQuery Mask Plugin
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📋 Pré-requisitos
 
-## Code of Conduct
+-   PHP >= 8.2
+-   Composer
+-   MySQL >= 5.7
+-   Node.js e NPM (para assets)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔧 Instalação
 
-## Security Vulnerabilities
+1. Clone o repositório:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+git clone https://github.com/seu-usuario/hospital-sao-lucas-mendel.git
+cd hospital-sao-lucas-mendel
+```
 
-## License
+2. Instale as dependências do PHP:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer install
+```
+
+3. Configure o arquivo .env:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Configure o banco de dados no arquivo .env:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hospital_sao_lucas_mendel
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
+
+5. Execute as migrações:
+
+```bash
+php artisan migrate
+```
+
+6. (Opcional) Execute os seeders:
+
+```bash
+php artisan db:seed
+```
+
+7. Inicie o servidor:
+
+```bash
+php artisan serve
+```
+
+## 📦 Estrutura do Banco de Dados
+
+### Tabelas Principais
+
+#### Médicos
+
+-   ID
+-   Nome
+-   CPF (único)
+-   Gênero
+-   Idade
+-   Data de Nascimento
+-   Endereço
+-   Telefone
+-   Matrícula (única)
+-   Data de Admissão
+-   Data de Demissão
+-   Necessidades Especiais
+-   Status
+
+#### Pacientes
+
+-   ID
+-   Nome
+-   CPF (único)
+-   Telefone
+-   Endereço
+-   Data de Nascimento
+-   Status do Cadastro
+
+#### Consultas
+
+-   ID
+-   Paciente (FK)
+-   Médico (FK)
+-   Especialidade (FK)
+-   Data
+-   Hora
+-   Status
+
+#### Especialidades
+
+-   ID
+-   Nome
+-   Descrição
+
+#### Horários Médicos
+
+-   ID
+-   Médico (FK)
+-   Especialidade (FK)
+-   Dia da Semana
+-   Hora Início
+-   Hora Fim
+-   Status
+
+## 🔐 Segurança
+
+-   Validação de dados em todos os formulários
+-   Proteção contra SQL Injection
+-   Máscaras para campos formatados
+-   Validação de horários e disponibilidade
+-   Soft deletes para exclusão segura
+
+## 🎨 Interface
+
+-   Design responsivo
+-   Bootstrap 5
+-   Formulários com validação visual
+-   Feedback de erros
+-   Máscaras para campos formatados
+
+## 📝 Validações Implementadas
+
+### Médicos
+
+-   CPF único
+-   Matrícula única
+-   Data de nascimento válida
+-   Telefone formatado
+-   Campos obrigatórios
+
+### Pacientes
+
+-   CPF único
+-   Telefone formatado
+-   Data de nascimento válida
+-   Campos obrigatórios
+
+### Consultas
+
+-   Verificação de disponibilidade
+-   Validação de horário
+-   Verificação de especialidade
+-   Status válido
+
+## 🔄 Fluxo de Trabalho
+
+1. Cadastro de Médicos e Especialidades
+2. Definição de Horários de Atendimento
+3. Cadastro de Pacientes
+4. Agendamento de Consultas
+5. Gestão de Convênios e Pagamentos
+
+## 🤝 Contribuição
+
+1. Faça o fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## ✨ Próximas Implementações
+
+-   [ ] Sistema de notificações
+-   [ ] Prontuário eletrônico
+-   [ ] Área do paciente
+-   [ ] Área do médico
+-   [ ] Relatórios e estatísticas
+-   [ ] Integração com WhatsApp
+-   [ ] Sistema de avaliação
+-   [ ] Backup automático
+
+## 📞 Suporte
+
+Para suporte, envie um email para seu-email@dominio.com ou abra uma issue no GitHub.

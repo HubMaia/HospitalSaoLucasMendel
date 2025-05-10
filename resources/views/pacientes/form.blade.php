@@ -19,7 +19,7 @@
 
     <div class="col-md-6 mb-3">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control @error('cpf') is-invalid @enderror" id="cpf" name="cpf" value="{{ old('cpf', $paciente->cpf ?? '') }}" required>
+        <input type="text" class="form-control cpf-mask @error('cpf') is-invalid @enderror" id="cpf" name="cpf" value="{{ old('cpf', $paciente->cpf ?? '') }}" placeholder="000.000.000-00" required>
         @error('cpf')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -29,7 +29,7 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="text" class="form-control @error('telefone') is-invalid @enderror" id="telefone" name="telefone" value="{{ old('telefone', $paciente->telefone ?? '') }}" required>
+        <input type="text" class="form-control phone-mask @error('telefone') is-invalid @enderror" id="telefone" name="telefone" value="{{ old('telefone', $paciente->telefone ?? '') }}" placeholder="(00) 00000-0000" required>
         @error('telefone')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror

@@ -68,7 +68,7 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="hora" class="form-label">Horário da Consulta</label>
-        <input type="time" class="form-control @error('hora') is-invalid @enderror" id="hora" name="hora" value="{{ old('hora', optional($consulta->hora ?? null)->format('H:i')) }}" required>
+        <input type="time" class="form-control time-mask @error('hora') is-invalid @enderror" id="hora" name="hora" value="{{ old('hora', optional($consulta->hora ?? null)->format('H:i')) }}" required>
         @error('hora')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror

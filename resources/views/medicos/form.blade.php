@@ -16,7 +16,10 @@
 
     <div class="col-md-6 mb-3">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" value="{{ old('cpf', $medico->cpf ?? '') }}" required>
+        <input type="text" class="form-control cpf-mask @error('cpf') is-invalid @enderror" id="cpf" name="cpf" value="{{ old('cpf', $medico->cpf ?? '') }}" placeholder="000.000.000-00" required>
+        @error('cpf')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -35,12 +38,18 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento', optional($medico->data_nascimento ?? null)->format('Y-m-d')) }}" required onchange="calcularIdade()">
+        <input type="date" class="form-control @error('data_nascimento') is-invalid @enderror" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento', optional($medico->data_nascimento ?? null)->format('Y-m-d')) }}" required onchange="calcularIdade()">
+        @error('data_nascimento')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="col-md-6 mb-3">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $medico->telefone ?? '') }}" required>
+        <input type="text" class="form-control phone-mask @error('telefone') is-invalid @enderror" id="telefone" name="telefone" value="{{ old('telefone', $medico->telefone ?? '') }}" placeholder="(00) 00000-0000" required>
+        @error('telefone')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -57,14 +66,20 @@
 
     <div class="col-md-6 mb-3">
         <label for="data_admissao" class="form-label">Data de Admissão</label>
-        <input type="date" class="form-control" id="data_admissao" name="data_admissao" value="{{ old('data_admissao', optional($medico->data_admissao ?? null)->format('Y-m-d')) }}" required>
+        <input type="date" class="form-control @error('data_admissao') is-invalid @enderror" id="data_admissao" name="data_admissao" value="{{ old('data_admissao', optional($medico->data_admissao ?? null)->format('Y-m-d')) }}" required>
+        @error('data_admissao')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="data_demissao" class="form-label">Data de Demissão</label>
-        <input type="date" class="form-control" id="data_demissao" name="data_demissao" value="{{ old('data_demissao', optional($medico->data_demissao ?? null)->format('Y-m-d')) }}">
+        <input type="date" class="form-control @error('data_demissao') is-invalid @enderror" id="data_demissao" name="data_demissao" value="{{ old('data_demissao', optional($medico->data_demissao ?? null)->format('Y-m-d')) }}">
+        @error('data_demissao')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="col-md-6 mb-3">
@@ -97,29 +112,29 @@
 
 @push('scripts')
 <script>
-function calcularIdade() {
-    const dataNascimento = document.getElementById('data_nascimento').value;
-    if (dataNascimento) {
-        const hoje = new Date();
-        const nascimento = new Date(dataNascimento);
-        let idade = hoje.getFullYear() - nascimento.getFullYear();
-        const mesAtual = hoje.getMonth();
-        const mesNascimento = nascimento.getMonth();
-        
-        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < nascimento.getDate())) {
-            idade--;
-        }
-        
-        document.getElementById('idade').value = idade;
-    }
-}
+    function calcularIdade() {
+        const dataNascimento = document.getElementById('data_nascimento').value;
+        if (dataNascimento) {
+            const hoje = new Date();
+            const nascimento = new Date(dataNascimento);
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const mesAtual = hoje.getMonth();
+            const mesNascimento = nascimento.getMonth();
 
-// Calcular idade ao carregar a página se houver data de nascimento
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('data_nascimento').value) {
-        calcularIdade();
+            if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < nascimento.getDate())) {
+                idade--;
+            }
+
+            document.getElementById('idade').value = idade;
+        }
     }
-});
+
+    // Calcular idade ao carregar a página se houver data de nascimento
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('data_nascimento').value) {
+            calcularIdade();
+        }
+    });
 </script>
 @endpush
 </div>

@@ -57,7 +57,7 @@
 
 <div class="mb-3">
     <label for="hora_inicio" class="form-label">Horário de Início</label>
-    <input type="time" class="form-control @error('hora_inicio') is-invalid @enderror" id="hora_inicio" name="hora_inicio" value="{{ old('hora_inicio', $horario->hora_inicio ?? '') }}" required>
+    <input type="time" class="form-control time-mask @error('hora_inicio') is-invalid @enderror" id="hora_inicio" name="hora_inicio" value="{{ old('hora_inicio', $horario->hora_inicio ?? '') }}" required>
     @error('hora_inicio')
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -65,7 +65,7 @@
 
 <div class="mb-3">
     <label for="hora_fim" class="form-label">Horário de Término</label>
-    <input type="time" class="form-control @error('hora_fim') is-invalid @enderror" id="hora_fim" name="hora_fim" value="{{ old('hora_fim', $horario->hora_fim ?? '') }}" required>
+    <input type="time" class="form-control time-mask @error('hora_fim') is-invalid @enderror" id="hora_fim" name="hora_fim" value="{{ old('hora_fim', $horario->hora_fim ?? '') }}" required>
     @error('hora_fim')
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror
