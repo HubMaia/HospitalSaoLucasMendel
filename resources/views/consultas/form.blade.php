@@ -89,9 +89,7 @@
         const especialidadeSelect = document.getElementById('especialidade_id');
 
         // Armazenar as especialidades de cada médico
-        const medicosEspecialidades = @json($medicos - > mapWithKeys(function($medico) {
-            return [$medico - > id => $medico - > especialidades - > pluck('id', 'nome')];
-        }));
+        const medicosEspecialidades = @json($medicosEspecialidades);
 
         function atualizarEspecialidades() {
             const medicoId = medicoSelect.value;
@@ -100,7 +98,7 @@
             if (medicoId) {
                 const especialidades = medicosEspecialidades[medicoId];
                 if (especialidades) {
-                    Object.entries(especialidades).forEach(([nome, id]) => {
+                    Object.entries(especialidades).forEach(([id, nome]) => {
                         const option = document.createElement('option');
                         option.value = id;
                         option.textContent = nome;
