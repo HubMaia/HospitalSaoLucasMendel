@@ -218,6 +218,21 @@
                 <img src="{{ asset('images/SANCTU LUCAS E MENDEL.png') }}" alt="Sanctu Lucas e Mendel" class="logo">
                 Sanctu Lucas e Mendel
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/medicos"><i class="fas fa-user-md me-1"></i>Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/especialidades"><i class="fas fa-stethoscope me-1"></i>Especialidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/horarios"><i class="fas fa-clock me-1"></i>Horários</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/consultas"><i class="fas fa-calendar-check me-1"></i>Consultas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pacientes"><i class="fas fa-users me-1"></i>Pacientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/autorizacoes"><i class="fas fa-file-signature me-1"></i>Autorizações</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pagamentos"><i class="fas fa-money-check-alt me-1"></i>Pagamentos</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 

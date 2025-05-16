@@ -25,13 +25,8 @@
 
 <div class="mb-3">
     <label for="especialidade_id" class="form-label">Especialidade</label>
-    <select class="form-select @error('especialidade_id') is-invalid @enderror" id="especialidade_id" name="especialidade_id" required>
-        <option value="">Selecione uma especialidade</option>
-        @foreach($especialidades as $especialidade)
-        <option value="{{ $especialidade->id }}" {{ old('especialidade_id', $horario->especialidade_id ?? '') == $especialidade->id ? 'selected' : '' }}>
-            {{ $especialidade->nome }}
-        </option>
-        @endforeach
+    <select class="form-select @error('especialidade_id') is-invalid @enderror" id="especialidade_id" name="especialidade_id" required disabled>
+        <option value="">Selecione primeiro um médico</option>
     </select>
     @error('especialidade_id')
     <div class="invalid-feedback">{{ $message }}</div>
@@ -80,3 +75,42 @@
         @enderror
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const medicoSelect = document.getElementById('medico_id');
+        const especialidadeSelect = document.getElementById('especialidade_id');
+
+        // Armazenar as especialidades de cada médico
+        const medicosEspecialidades = @json($medicosEspecialidades);
+
+        function atualizarEspecialidades() {
+            const medicoId = medicoSelect.value;
+            especialidadeSelect.innerHTML = '<option value="">Selecione uma especialidade</option>';
+
+            if (medicoId) {
+                const especialidades = medicosEspecialidades[medicoId];
+                if (especialidades) {
+                    Object.entries(especialidades).forEach(([nome, id]) => {
+                        const option = document.createElement('option');
+                        option.value = id;
+                        option.textContent = nome;
+                        especialidadeSelect.appendChild(option);
+                    });
+                    especialidadeSelect.disabled = false;
+                }
+            } else {
+                especialidadeSelect.disabled = true;
+            }
+        }
+
+        medicoSelect.addEventListener('change', atualizarEspecialidades);
+
+        // Inicializar especialidades se um médico já estiver selecionado
+        if (medicoSelect.value) {
+            atualizarEspecialidades();
+        }
+    });
+</script>
+@endpush

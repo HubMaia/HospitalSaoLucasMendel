@@ -26,13 +26,14 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="genero" class="form-label">Gênero</label>
-        <input type="text" class="form-control" id="genero" name="genero" value="{{ old('genero', $medico->genero ?? '') }}" required>
+        <select class="form-select" id="genero" name="genero" required>
+            <option value="">Selecione o gênero</option>
+            <option value="Masculino" {{ old('genero', $medico->genero ?? '') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            <option value="Feminino" {{ old('genero', $medico->genero ?? '') == 'Feminino' ? 'selected' : '' }}>Feminino</option>
+        </select>
     </div>
 
-    <div class="col-md-6 mb-3">
-        <label for="idade" class="form-label">Idade</label>
-        <input type="number" class="form-control" id="idade" name="idade" value="{{ old('idade', $medico->idade ?? '') }}" readonly required>
-    </div>
+    <input type="hidden" id="idade" name="idade" value="{{ old('idade', $medico->idade ?? '') }}" required>
 </div>
 
 <div class="row">
@@ -42,6 +43,9 @@
         @error('data_nascimento')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+        <div id="idade-error" class="invalid-feedback" style="display: none;">
+            O médico deve ter pelo menos 18 anos de idade.
+        </div>
     </div>
 
     <div class="col-md-6 mb-3">
@@ -113,10 +117,12 @@
 @push('scripts')
 <script>
     function calcularIdade() {
-        const dataNascimento = document.getElementById('data_nascimento').value;
-        if (dataNascimento) {
+        const dataNascimento = document.getElementById('data_nascimento');
+        const idadeError = document.getElementById('idade-error');
+
+        if (dataNascimento.value) {
             const hoje = new Date();
-            const nascimento = new Date(dataNascimento);
+            const nascimento = new Date(dataNascimento.value);
             let idade = hoje.getFullYear() - nascimento.getFullYear();
             const mesAtual = hoje.getMonth();
             const mesNascimento = nascimento.getMonth();
@@ -125,7 +131,16 @@
                 idade--;
             }
 
-            document.getElementById('idade').value = idade;
+            if (idade < 18) {
+                dataNascimento.classList.add('is-invalid');
+                idadeError.style.display = 'block';
+                dataNascimento.value = ''; // Limpa o campo
+                document.getElementById('idade').value = '';
+            } else {
+                dataNascimento.classList.remove('is-invalid');
+                idadeError.style.display = 'none';
+                document.getElementById('idade').value = idade;
+            }
         }
     }
 

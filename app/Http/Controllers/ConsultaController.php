@@ -24,9 +24,11 @@ class ConsultaController extends Controller
     public function create()
     {
         $pacientes = Paciente::where('status_cadastro', true)->get();
-        $medicos = Medico::where('ativo', true)->get();
-        $especialidades = Especialidade::all();
-        return view('consultas.create', compact('pacientes', 'medicos', 'especialidades'));
+        $medicos = Medico::where('ativo', true)->with('especialidades')->get();
+        $medicosEspecialidades = $medicos->mapWithKeys(function ($medico) {
+            return [$medico->id => $medico->especialidades->pluck('id', 'nome')];
+        });
+        return view('consultas.create', compact('pacientes', 'medicos', 'medicosEspecialidades'));
     }
 
     public function store(Request $request)

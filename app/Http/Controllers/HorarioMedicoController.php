@@ -17,9 +17,11 @@ class HorarioMedicoController extends Controller
 
     public function create()
     {
-        $medicos = Medico::where('ativo', true)->get();
-        $especialidades = Especialidade::all();
-        return view('horarios.create', compact('medicos', 'especialidades'));
+        $medicos = Medico::where('ativo', true)->with('especialidades')->get();
+        $medicosEspecialidades = $medicos->mapWithKeys(function ($medico) {
+            return [$medico->id => $medico->especialidades->pluck('id', 'nome')];
+        });
+        return view('horarios.create', compact('medicos', 'medicosEspecialidades'));
     }
 
     public function store(Request $request)
@@ -33,6 +35,18 @@ class HorarioMedicoController extends Controller
             'ativo' => 'boolean'
         ]);
 
+        // Verificar se já existe um horário para o mesmo médico, especialidade e dia
+        $horarioExistente = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('dia_semana', $data['dia_semana'])
+            ->first();
+
+        if ($horarioExistente) {
+            return back()->withErrors([
+                'dia_semana' => 'Já existe um horário cadastrado para este médico nesta especialidade e dia da semana.'
+            ]);
+        }
+
         HorarioMedico::create($data);
 
         return redirect()->route('horarios.index')
@@ -41,9 +55,11 @@ class HorarioMedicoController extends Controller
 
     public function edit(HorarioMedico $horario)
     {
-        $medicos = Medico::where('ativo', true)->get();
-        $especialidades = Especialidade::all();
-        return view('horarios.edit', compact('horario', 'medicos', 'especialidades'));
+        $medicos = Medico::where('ativo', true)->with('especialidades')->get();
+        $medicosEspecialidades = $medicos->mapWithKeys(function ($medico) {
+            return [$medico->id => $medico->especialidades->pluck('id', 'nome')];
+        });
+        return view('horarios.edit', compact('horario', 'medicos', 'medicosEspecialidades'));
     }
 
     public function update(Request $request, HorarioMedico $horario)
@@ -56,6 +72,20 @@ class HorarioMedicoController extends Controller
             'hora_fim' => 'required|date_format:H:i|after:hora_inicio',
             'ativo' => 'boolean'
         ]);
+
+        // Verificar se já existe um horário para o mesmo médico, especialidade e dia
+        // Excluindo o próprio horário que está sendo editado
+        $horarioExistente = HorarioMedico::where('medico_id', $data['medico_id'])
+            ->where('especialidade_id', $data['especialidade_id'])
+            ->where('dia_semana', $data['dia_semana'])
+            ->where('id', '!=', $horario->id)
+            ->first();
+
+        if ($horarioExistente) {
+            return back()->withErrors([
+                'dia_semana' => 'Já existe um horário cadastrado para este médico nesta especialidade e dia da semana.'
+            ]);
+        }
 
         $horario->update($data);
 
