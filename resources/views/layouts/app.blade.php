@@ -216,7 +216,7 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <img src="{{ asset('images/SANCTU LUCAS E MENDEL.png') }}" alt="Sanctu Lucas e Mendel" class="logo">
-                Sanctu Lucas e Mendel
+                São Lucas e Mendel
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -236,11 +236,7 @@
         </div>
     </nav>
 
-    <div class="page-header">
-        <div class="container">
-            <h1 class="page-title">@yield('title')</h1>
-        </div>
-    </div>
+
 
     <div class="container">
         @if(session('success'))

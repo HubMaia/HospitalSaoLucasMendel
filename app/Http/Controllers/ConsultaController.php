@@ -91,6 +91,17 @@ class ConsultaController extends Controller
             return back()->withErrors(['hora' => 'Já existe uma consulta agendada neste horário.']);
         }
 
+        // Verificar se o paciente já tem consulta agendada no mesmo horário
+        $consultaPacienteExistente = Consulta::where('paciente_id', $data['paciente_id'])
+            ->where('data', $data['data'])
+            ->where('hora', $data['hora'])
+            ->where('status', '!=', 'cancelada')
+            ->first();
+
+        if ($consultaPacienteExistente) {
+            return back()->withErrors(['hora' => 'O paciente já possui uma consulta agendada neste horário.']);
+        }
+
         Consulta::create($data);
 
         return redirect()->route('consultas.index')
@@ -166,6 +177,18 @@ class ConsultaController extends Controller
 
         if ($consultaExistente) {
             return back()->withErrors(['hora' => 'Já existe uma consulta agendada neste horário.']);
+        }
+
+        // Verificar se o paciente já tem consulta agendada no mesmo horário (exceto a própria consulta)
+        $consultaPacienteExistente = Consulta::where('paciente_id', $data['paciente_id'])
+            ->where('data', $data['data'])
+            ->where('hora', $data['hora'])
+            ->where('status', '!=', 'cancelada')
+            ->where('id', '!=', $consulta->id)
+            ->first();
+
+        if ($consultaPacienteExistente) {
+            return back()->withErrors(['hora' => 'O paciente já possui uma consulta agendada neste horário.']);
         }
 
         $consulta->update($data);

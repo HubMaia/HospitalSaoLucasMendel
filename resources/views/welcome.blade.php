@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Central de Administração')
-
 @section('styles')
 <style>
     :root {
@@ -96,7 +94,8 @@
 @section('content')
 <div class="hero-section">
     <div class="container">
-
+        <h1 class="hero-title">Bem-vindo à Central de Administração</h1>
+        <p class="hero-subtitle">Gerencie todos os aspectos da sua clínica com facilidade</p>
     </div>
 </div>
 <div class="container" style="margin-top: -40px;">
