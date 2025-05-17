@@ -15,6 +15,8 @@ class Paciente extends Model
     protected $fillable = [
         'nome',
         'cpf',
+        'genero',
+        'tipo_sanguineo',
         'telefone',
         'endereco',
         'data_nascimento',

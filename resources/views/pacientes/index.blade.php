@@ -18,6 +18,8 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Telefone</th>
+                        <th>Gênero</th>
+                        <th>Tipo Sanguíneo</th>
                         <th>Data de Nascimento</th>
                         <th>Status</th>
                         <th>Ações</th>
@@ -29,6 +31,8 @@
                         <td>{{ $paciente->nome }}</td>
                         <td>{{ $paciente->cpf }}</td>
                         <td>{{ $paciente->telefone }}</td>
+                        <td>{{ $paciente->genero }}</td>
+                        <td>{{ $paciente->tipo_sanguineo }}</td>
                         <td>{{ $paciente->data_nascimento->format('d/m/Y') }}</td>
                         <td>
                             <span class="badge {{ $paciente->status_cadastro ? 'bg-success' : 'bg-danger' }}">

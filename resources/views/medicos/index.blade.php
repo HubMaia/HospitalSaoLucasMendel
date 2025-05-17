@@ -31,7 +31,7 @@
                             @endforeach
                         </td>
                         <td>
-                            <span class="status-badge {{ $medico->ativo ? 'status-active' : 'status-inactive' }}">
+                            <span class="badge {{ $medico->ativo ? 'bg-success' : 'bg-danger' }}">
                                 {{ $medico->ativo ? 'Ativo' : 'Inativo' }}
                             </span>
                         </td>

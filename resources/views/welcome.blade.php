@@ -108,7 +108,7 @@
                         <div class="card-body text-center">
                             <i class="fas fa-user-md feature-icon"></i>
                             <h5 class="card-title">Médicos</h5>
-                            <p class="card-text">Gerenciamento de médicos e suas especialidades</p>
+                            <p class="card-text">Gerenciamento de médicos</p>
                             <a href="{{ route('medicos.index') }}" class="btn btn-primary">Acessar</a>
                         </div>
                     </div>

@@ -24,12 +24,15 @@ class PacienteController extends Controller
         $data = $request->validate([
             'nome' => 'required|string|max:100',
             'cpf' => ['required', 'string', 'max:14', 'unique:pacientes', new Cpf],
+            'genero' => 'required|string|in:Masculino,Feminino,Outro',
+            'tipo_sanguineo' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'telefone' => 'required|string|max:20',
             'endereco' => 'required|string|max:150',
             'data_nascimento' => 'required|date',
             'status_cadastro' => 'boolean'
         ]);
 
+        $data['status_cadastro'] = $request->has('status_cadastro');
         Paciente::create($data);
 
         return redirect()->route('pacientes.index')
@@ -46,12 +49,15 @@ class PacienteController extends Controller
         $data = $request->validate([
             'nome' => 'required|string|max:100',
             'cpf' => ['required', 'string', 'max:14', "unique:pacientes,cpf,{$paciente->id}", new Cpf],
+            'genero' => 'required|string|in:Masculino,Feminino,Outro',
+            'tipo_sanguineo' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'telefone' => 'required|string|max:20',
             'endereco' => 'required|string|max:150',
             'data_nascimento' => 'required|date',
             'status_cadastro' => 'boolean'
         ]);
 
+        $data['status_cadastro'] = $request->has('status_cadastro');
         $paciente->update($data);
 
         return redirect()->route('pacientes.index')

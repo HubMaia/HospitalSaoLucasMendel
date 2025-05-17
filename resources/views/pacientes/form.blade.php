@@ -44,6 +44,39 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="genero" class="form-label">Gênero</label>
+        <select class="form-select @error('genero') is-invalid @enderror" id="genero" name="genero" required>
+            <option value="">Selecione o gênero</option>
+            <option value="Masculino" {{ old('genero', $paciente->genero ?? '') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            <option value="Feminino" {{ old('genero', $paciente->genero ?? '') == 'Feminino' ? 'selected' : '' }}>Feminino</option>
+            <option value="Outro" {{ old('genero', $paciente->genero ?? '') == 'Outro' ? 'selected' : '' }}>Outro</option>
+        </select>
+        @error('genero')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label for="tipo_sanguineo" class="form-label">Tipo Sanguíneo</label>
+        <select class="form-select @error('tipo_sanguineo') is-invalid @enderror" id="tipo_sanguineo" name="tipo_sanguineo" required>
+            <option value="">Selecione o tipo sanguíneo</option>
+            <option value="A+" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'A+' ? 'selected' : '' }}>A+</option>
+            <option value="A-" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'A-' ? 'selected' : '' }}>A-</option>
+            <option value="B+" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'B+' ? 'selected' : '' }}>B+</option>
+            <option value="B-" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'B-' ? 'selected' : '' }}>B-</option>
+            <option value="AB+" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'AB+' ? 'selected' : '' }}>AB+</option>
+            <option value="AB-" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'AB-' ? 'selected' : '' }}>AB-</option>
+            <option value="O+" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'O+' ? 'selected' : '' }}>O+</option>
+            <option value="O-" {{ old('tipo_sanguineo', $paciente->tipo_sanguineo ?? '') == 'O-' ? 'selected' : '' }}>O-</option>
+        </select>
+        @error('tipo_sanguineo')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
 <div class="mb-3">
     <label for="endereco" class="form-label">Endereço</label>
     <input type="text" class="form-control @error('endereco') is-invalid @enderror" id="endereco" name="endereco" value="{{ old('endereco', $paciente->endereco ?? '') }}" required>

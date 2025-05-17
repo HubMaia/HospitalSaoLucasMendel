@@ -40,6 +40,7 @@ class MedicoController extends Controller
             'especialidades.*' => 'exists:especialidades,id', // Garantir que os ids são válidos
         ]);
 
+        $data['ativo'] = $request->has('ativo');
         $medico = Medico::create($data);
         $medico->especialidades()->sync($data['especialidades'] ?? []); // Associa as especialidades
 
@@ -72,6 +73,7 @@ class MedicoController extends Controller
             'especialidades.*' => 'exists:especialidades,id', // Garantir que os ids são válidos
         ]);
 
+        $data['ativo'] = $request->has('ativo');
         $medico->update($data);
         $medico->especialidades()->sync($data['especialidades'] ?? []); // Atualiza as especialidades
 
